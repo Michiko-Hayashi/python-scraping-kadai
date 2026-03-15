@@ -8,14 +8,14 @@ headers = {
 }
 
 response = requests.get(url, headers=headers)
-print(response.status_code)
 
 soup = BeautifulSoup(response.text, "html.parser")
 
-article = soup.find("article")
+# 本文ブロックを取得
+body = soup.select_one("div.article_body")
 
-if article:
-    for p in article.find_all("p"):
+if body:
+    for p in body.find_all("p"):
         text = p.get_text(strip=True)
         if text:
             print(text)
